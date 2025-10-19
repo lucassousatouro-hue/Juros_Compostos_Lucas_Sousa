@@ -53,8 +53,20 @@ if st.button("Calcular"):
     imposto = total_juros * (aliquota / 100)
     saldo_liquido = saldo - imposto
 
+    # Conversão de meses em anos e meses legíveis
+    anos = meses // 12
+    resto_meses = meses % 12
+
+    if anos == 0:
+        tempo_total = f"{meses} mês{'es' if meses > 1 else ''}"
+    elif resto_meses == 0:
+        tempo_total = f"{anos} ano{'s' if anos > 1 else ''}"
+    else:
+        tempo_total = f"{anos} ano{'s' if anos > 1 else ''} e {resto_meses} mês{'es' if resto_meses > 1 else ''}"
+
     # Exibe resultados
     st.subheader("📈 Resultado final")
+    st.write(f"**Tempo total do investimento:** {tempo_total}")
     st.write(f"**Total investido:** R$ {total_aportes:,.2f}")
     st.write(f"**Total de juros:** R$ {total_juros:,.2f}")
     st.write(f"**Imposto de renda ({aliquota:.1f}%):** R$ {imposto:,.2f}")
